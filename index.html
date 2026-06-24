@@ -192,6 +192,23 @@
   .foot-social svg{width:19px;height:19px}
   .foot-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1.6rem;border-top:1px solid var(--line);color:var(--muted-2);font-size:.84rem}
 
+  /* FAQ */
+  .faq-list{max-width:820px;border-top:1px solid var(--line)}
+  .faq-item{border-bottom:1px solid var(--line)}
+  .faq-q{width:100%;background:none;border:0;cursor:pointer;color:var(--text);text-align:left;
+    display:flex;align-items:center;justify-content:space-between;gap:1.2rem;
+    padding:1.3rem 0;font-family:var(--display);font-weight:700;font-size:1.12rem;line-height:1.3}
+  .faq-q:hover{color:var(--primary)}
+  .faq-ico{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+    border:1px solid var(--line-strong);transition:transform .3s ease, border-color .3s ease, background .3s ease}
+  .faq-ico svg{width:14px;height:14px;stroke:var(--primary)}
+  .faq-item.open .faq-ico{transform:rotate(45deg);border-color:var(--primary);background:color-mix(in srgb,var(--primary) 15%,transparent)}
+  .faq-a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.16,1,.3,1)}
+  .faq-item.open .faq-a{grid-template-rows:1fr}
+  .faq-a > div{overflow:hidden}
+  .faq-a p{color:var(--muted);font-size:1rem;padding-bottom:1.3rem;max-width:70ch}
+  @media (prefers-reduced-motion:reduce){.faq-a{transition:none}.faq-ico{transition:none}}
+
   /* Sticky mobile call bar */
   .callbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:.6rem .8rem;
     background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
@@ -282,6 +299,7 @@
     <nav class="nav-links" aria-label="Κύριο μενού">
       <a href="#services">Τι λύνουμε</a>
       <a href="#why">Γιατί εμάς</a>
+      <a href="#faq">Ερωτήσεις</a>
       <a href="#contact">Πού είμαστε</a>
     </nav>
     <div class="nav-cta">
@@ -294,6 +312,7 @@
 <nav class="mobile-menu" id="mobileMenu" aria-label="Μενού">
   <a href="#services">Τι λύνουμε</a>
   <a href="#why">Γιατί εμάς</a>
+  <a href="#faq">Ερωτήσεις</a>
   <a href="#contact">Πού είμαστε</a>
   <a class="btn btn-primary" id="menu-call" href="#">Κάλεσέ μας τώρα</a>
 </nav>
@@ -371,6 +390,20 @@
   </div>
 </section>
 
+<!-- FAQ -->
+<section class="block faqsec" id="faq">
+  <div class="wrap">
+    <div class="head-row reveal">
+      <div>
+        <span class="eyebrow">Συχνές ερωτήσεις</span>
+        <h2 class="section-title">Καλό να ξέρεις.</h2>
+      </div>
+      <p class="lede">Οι πιο συνηθισμένες απορίες πριν περάσεις. Κάτι άλλο; Πάρε μας τηλέφωνο.</p>
+    </div>
+    <div class="faq-list reveal" id="faqList"></div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section class="block" id="contact">
   <div class="wrap">
@@ -426,6 +459,7 @@
       <nav class="foot-links" aria-label="Υποσέλιδο">
         <a href="#services">Τι λύνουμε</a>
         <a href="#why">Γιατί εμάς</a>
+        <a href="#faq">Ερωτήσεις</a>
         <a href="#contact">Πού είμαστε</a>
       </nav>
       <div class="foot-social" id="footSocial" aria-label="Κοινωνικά δίκτυα"></div>
@@ -506,7 +540,24 @@
     grid.appendChild(el);
   });
 
-  // ---- SEO: meta tags from config ----
+  // FAQ accordion from config
+  var faqList = $("#faqList");
+  (C.faq || []).forEach(function (item, i) {
+    var d = document.createElement("div");
+    d.className = "faq-item" + (i === 0 ? " open" : "");
+    d.innerHTML =
+      '<button class="faq-q" aria-expanded="' + (i === 0) + '"><span>' + (item.q || "") + '</span>' +
+      '<span class="faq-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span></button>' +
+      '<div class="faq-a"><div><p>' + (item.a || "") + '</p></div></div>';
+    var btn = d.querySelector(".faq-q");
+    btn.addEventListener("click", function () {
+      var open = d.classList.toggle("open");
+      btn.setAttribute("aria-expanded", String(open));
+    });
+    faqList.appendChild(d);
+  });
+
+
   var url = (C.url || "").replace(/\/+$/, "");
   var locDesc = city
     ? (name + " — Συνεργείο ελαστικών στη " + city + ". Αλλαγή ελαστικών, ζυγοστάθμιση, ευθυγράμμιση, επισκευή & ζάντες. Πάρε τηλέφωνο τώρα.")
@@ -570,9 +621,9 @@
   });
   if (offers.length) biz.makesOffer = offers;
 
-  // ---- JSON-LD: FAQ (από τα προβλήματα → λύσεις) ----
-  var faq = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":(C.services || []).map(function (s) {
-    return {"@type":"Question","name":s.name || "","acceptedAnswer":{"@type":"Answer","text":s.description || ""}};
+  // ---- JSON-LD: FAQ (από την ορατή ενότητα ερωτήσεων) ----
+  var faq = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":(C.faq || []).map(function (f) {
+    return {"@type":"Question","name":f.q || "","acceptedAnswer":{"@type":"Answer","text":f.a || ""}};
   })};
 
   function addLD(obj){ var sc = document.createElement("script"); sc.type = "application/ld+json"; sc.textContent = JSON.stringify(obj); document.head.appendChild(sc); }
