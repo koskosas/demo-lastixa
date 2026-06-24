@@ -200,7 +200,39 @@
   /* Reveal */
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1)}
   .reveal.in{opacity:1;transform:none}
-  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* Staggered reveal (children animate in sequence) */
+  .stagger > *{opacity:0;transform:translateY(18px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+  .stagger.in > *{opacity:1;transform:none}
+  .hero-copy.stagger.in > :nth-child(1){transition-delay:.05s}
+  .hero-copy.stagger.in > :nth-child(2){transition-delay:.15s}
+  .hero-copy.stagger.in > :nth-child(3){transition-delay:.28s}
+  .hero-copy.stagger.in > :nth-child(4){transition-delay:.4s}
+  .hero-copy.stagger.in > :nth-child(5){transition-delay:.52s}
+  .why-grid.stagger.in > :nth-child(2){transition-delay:.1s}
+  .why-grid.stagger.in > :nth-child(3){transition-delay:.2s}
+  .why-grid.stagger.in > :nth-child(4){transition-delay:.3s}
+
+  /* Breathing glow behind the wheel */
+  .wheel-stage::before{animation:breathe 5.5s ease-in-out infinite}
+  @keyframes breathe{0%,100%{opacity:.8;transform:scale(1)}50%{opacity:1;transform:scale(1.07)}}
+
+  /* Phone icon "rings" on hover of call buttons */
+  .btn-primary:hover svg{animation:ring .6s ease}
+  @keyframes ring{0%,100%{transform:rotate(0)}15%{transform:rotate(-13deg)}30%{transform:rotate(11deg)}45%{transform:rotate(-7deg)}60%{transform:rotate(4deg)}}
+
+  /* Gentle attention pulse on the sticky mobile call bar */
+  .callbar .btn{animation:softpulse 2.6s ease-in-out infinite}
+  @keyframes softpulse{
+    0%,100%{box-shadow:0 8px 26px -10px color-mix(in srgb,var(--primary) 70%,transparent)}
+    50%{box-shadow:0 10px 40px -6px color-mix(in srgb,var(--primary) 100%,transparent)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .reveal,.stagger > *{opacity:1;transform:none;transition:none}
+    .wheel-stage::before,.callbar .btn{animation:none}
+    .btn-primary:hover svg{animation:none}
+  }
   :focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px}
   .skip{position:fixed;top:-60px;left:12px;z-index:100;background:var(--primary);color:#0B0B0B;font-weight:700;
     padding:.7em 1.2em;border-radius:10px;transition:top .2s}
@@ -270,7 +302,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="wrap hero-grid">
-    <div class="hero-copy reveal">
+    <div class="hero-copy stagger">
       <span class="eyebrow">Συνεργείο ελαστικών</span>
       <h1>Πρόβλημα με τα λάστιχα;<br><span class="accent">Το λύνουμε σήμερα.</span></h1>
       <p class="lede">Κλατάρισμα, φθαρμένα λάστιχα, τρέμει το τιμόνι; Πέρνα από το συνεργείο μας — γρήγορα και σωστά.</p>
@@ -318,7 +350,7 @@
         <h2 class="section-title">Απλά, γρήγορα, τίμια.</h2>
       </div>
     </div>
-    <div class="why-grid reveal">
+    <div class="why-grid stagger">
       <div class="feat">
         <span class="feat-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></span>
         <h3>Άμεσα</h3><p>Σε εξυπηρετούμε μόλις φτάσεις, χωρίς καθυστερήσεις και αναμονή.</p>
@@ -570,7 +602,7 @@
 
   // reveal
   var io = new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }); }, {threshold:0.12});
-  document.querySelectorAll(".reveal").forEach(function(el){ io.observe(el); });
+  document.querySelectorAll(".reveal, .stagger").forEach(function(el){ io.observe(el); });
 })();
 </script>
 </body>
