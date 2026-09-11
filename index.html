@@ -192,7 +192,7 @@
   .foot-social svg{width:19px;height:19px}
   .foot-bottom{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding-top:1.6rem;border-top:1px solid var(--line);color:var(--muted-2);font-size:.84rem}
 
-  /* FAQ */
+ /* FAQ */
   .faq-list{max-width:820px;border-top:1px solid var(--line)}
   .faq-item{border-bottom:1px solid var(--line)}
   .faq-q{width:100%;background:none;border:0;cursor:pointer;color:var(--text);text-align:left;
@@ -208,28 +208,50 @@
   .faq-a > div{overflow:hidden}
   .faq-a p{color:var(--muted);font-size:1rem;padding-bottom:1.3rem;max-width:70ch}
   @media (prefers-reduced-motion:reduce){.faq-a{transition:none}.faq-ico{transition:none}}
-faq: [
-  {
-    q: "Χρειάζεται ραντεβού ή μπορώ να έρθω κατευθείαν;",
-    a: "Μπορείς να έρθεις χωρίς ραντεβού — εξυπηρετούμε με σειρά προτεραιότητας. Αν θες να είσαι σίγουρος ότι θα σε πάρουμε αμέσως, ένα τηλεφώνημα πριν έρθεις πάντα βοηθάει, ειδικά σε ώρες αιχμής."
-  },
-  {
-    q: "Πόσο κοστίζει η αλλαγή ή η ζυγοστάθμιση ελαστικών;",
-    a: "Εξαρτάται από το μέγεθος του ελαστικού και τον τύπο του οχήματος. Σου δίνουμε την ακριβή τιμή με ένα τηλεφώνημα πριν έρθεις, ώστε να μην έχεις καμία έκπληξη όταν φτάσεις."
-  },
-  {
-    q: "Πόση ώρα θα χρειαστεί η δουλειά;",
-    a: "Η αλλαγή 4 ελαστικών με ζυγοστάθμιση συνήθως διαρκεί 30-45 λεπτά. Απλή επισκευή λάστιχου (μπαλάκι) γίνεται σε 10-15 λεπτά, όσο περιμένεις."
-  },
-  {
-    q: "Δέχεστε πληρωμή με κάρτα;",
-    a: "Ναι, δεχόμαστε και μετρητά και κάρτα, χωρίς επιπλέον χρέωση."
-  },
-  {
-    q: "Τι κάνω αν κλαταρίσει λάστιχο εκτός ωραρίου;",
-    a: "Αν είναι επείγον, τηλεφώνησέ μας — αν είμαστε διαθέσιμοι θα σε εξυπηρετήσουμε ακόμα κι εκτός κανονικού ωραρίου. Διαφορετικά, πέρνα πρώτο πράγμα το επόμενο πρωί και σε προτεραιοποιούμε."
-  }
-]
+  <div class="faq-list reveal" id="faqList">
+
+  <div class="faq-item open">
+    <button class="faq-q" aria-expanded="true">
+      <span>Χρειάζεται ραντεβού ή μπορώ να έρθω κατευθείαν;</span>
+      <span class="faq-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    </button>
+    <div class="faq-a"><div><p>Μπορείς να έρθεις χωρίς ραντεβού — εξυπηρετούμε με σειρά προτεραιότητας. Αν θες να είσαι σίγουρος ότι θα σε πάρουμε αμέσως, ένα τηλεφώνημα πριν έρθεις πάντα βοηθάει, ειδικά σε ώρες αιχμής.</p></div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span>Πόσο κοστίζει η αλλαγή ή η ζυγοστάθμιση ελαστικών;</span>
+      <span class="faq-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    </button>
+    <div class="faq-a"><div><p>Εξαρτάται από το μέγεθος του ελαστικού και τον τύπο του οχήματος. Σου δίνουμε την ακριβή τιμή με ένα τηλεφώνημα πριν έρθεις, ώστε να μην έχεις καμία έκπληξη όταν φτάσεις.</p></div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span>Πόση ώρα θα χρειαστεί η δουλειά;</span>
+      <span class="faq-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    </button>
+    <div class="faq-a"><div><p>Η αλλαγή 4 ελαστικών με ζυγοστάθμιση συνήθως διαρκεί 30-45 λεπτά. Απλή επισκευή λάστιχου (μπαλάκι) γίνεται σε 10-15 λεπτά, όσο περιμένεις.</p></div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span>Δέχεστε πληρωμή με κάρτα;</span>
+      <span class="faq-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    </button>
+    <div class="faq-a"><div><p>Ναι, δεχόμαστε και μετρητά και κάρτα, χωρίς επιπλέον χρέωση.</p></div></div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false">
+      <span>Τι κάνω αν κλαταρίσει λάστιχο εκτός ωραρίου;</span>
+      <span class="faq-ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+    </button>
+    <div class="faq-a"><div><p>Αν είναι επείγον, τηλεφώνησέ μας — αν είμαστε διαθέσιμοι θα σε εξυπηρετήσουμε ακόμα κι εκτός κανονικού ωραρίου. Διαφορετικά, πέρνα πρώτο πράγμα το επόμενο πρωί και σε προτεραιοποιούμε.</p></div></div>
+  </div>
+
+</div>
+
   /* Sticky mobile call bar */
   .callbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:.6rem .8rem;
     background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
